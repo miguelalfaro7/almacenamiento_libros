@@ -1,0 +1,40 @@
+{% extends 'gestion/base.html' %}
+
+{% block title %}Lista de libros{% endblock %}
+
+{% block content %}
+    <h2>Lista de libros</h2>
+    <a class="boton" href="{% url 'crear_libro' %}">Nuevo libro</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Fecha de publicación</th>
+                <th>Género</th>
+                <th>ISBN</th>
+                <th>Autor</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for libro in libros %}
+                <tr>
+                    <td>{{ libro.titulo }}</td>
+                    <td>{{ libro.fecha_publicacion }}</td>
+                    <td>{{ libro.genero }}</td>
+                    <td>{{ libro.isbn }}</td>
+                    <td>{{ libro.autor.nombre }}</td>
+                    <td class="acciones">
+                        <a href="{% url 'editar_libro' libro.pk %}">Editar</a>
+                        <a href="{% url 'eliminar_libro' libro.pk %}">Eliminar</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">No hay libros registrados.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
